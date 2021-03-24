@@ -30,13 +30,10 @@ def moyenne_eleve1(liste):
 print(moyenne_eleve1(notes))
 
 #c) permet de choisir la moyenne de se que l'on veut, exemple la moyenne des éléve en maths
-#def moyenne_tuples(liste):
-  #moyenne = [ item[2]  for item in liste if  item[0]==  input("choisir l'eleve1 ou eleve2 :") and item[1]== input("choisir la matiere , eco, math ou physique :") ] 
-  #moyenne1 = sum(moyenne)/len(moyenne)
- # return moyenne1    
-
-#print(moyenne_tuples(notes))
-
+def moyenne_tuple(notes, eleve, matiere):
+  moyenne = [x for x in notes if x[0] == eleve]
+  moyenne_matiere = [x for x in moyenne if x[1] == matiere]
+  return sum([n[2] for x in moyenne_matiere ])/len(moyenne_matiere ) 
 
 
 class Note:
@@ -59,12 +56,59 @@ Note.afficher(onote)
 
 #Question5
 
-note1 = Note('eleve1', 'math', 13)
-note2 = Note('eleve1', 'physique', 15)
-note3 = Note('eleve1', 'math', 13)
-note4 = Note('eleve1', 'eco', 12)
-note5 = Note('eleve1', 'eco', 13)
-note6 = Note('eleve1', 'math', 12)
-note7 = Note('eleve2', 'math', 13)
-note8 = Note('eleve2', 'math', 14)
+onotes=[Note(x,y,z) for x,y,z in notes] 
+
+  # Question 6
+class Note:
+  def __init__(self, eleve, matiere, valeur): #La méthode pour créer un objet
+    self.eleve = eleve
+    self.matiere = matiere
+    self.valeur = valeur
+  
+  def __str__(self):
+    return  f"{self.__class__.__name__}('{self.eleve}','{self.matiere}','{self.valeur}')" #ce que vous voulez afficher"  
+
+
+# Question 7
+
+notes_enregistrées = []
+
+class Note:
+  def __init__(self, eleve, matiere, valeur): #La méthode pour créer un objet
+    self.eleve = eleve
+    self.matiere = matiere
+    self.valeur = valeur
+    notes_enregistrées.append(self) 
+
+  def __str__(self):
+    return  f"{self.__class__.__name__}('{self.eleve}','{self.matiere}','{self.valeur}')" #ce que vous voulez afficher"   
+
+
+#Question 8
+
+def moyenne_Notes(notes, eleve = None, matiere = None):
+  moyenne = [x for x in notes if x.eleve == eleve] if eleve is not None else notes
+  moyenne_matiere = [x for x in moyenne if x.matiere == matiere] if matiere is not None else moyenne
+  return sum([x.valeur for x in moyenne_matiere])/len(moyenne_matiere)
+
+
+#Question 9
+
+class Note:
+  instances = []
+  def __init__(self, eleve, matiere, valeur): #La méthode pour créer un objet
+    self.eleve = eleve
+    self.matiere = matiere
+    self.valeur = valeur
+    self.instances.append(self) 
+
+  def __str__(self):
+    return f"{self.__class__.__name__}('{self.eleve}','{self.matiere}','{self.valeur}')"
+
+#Question 10
+
+
+@classmethod 
+def vider(cls):
+  cls.instances = []
 
